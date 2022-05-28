@@ -23,8 +23,6 @@ class MovieDetailScreen extends StatelessWidget {
         .get(Uri.parse('https://api.themoviedb.org/3/movie/$id?api_key=$apiKey&language=$language'));
 
     if (response.statusCode == 200) {
-      print('詳細レスポンスサクセス');
-
       final result = jsonDecode(response.body);
       _id = result['id'];
       _title = result['title'];
@@ -34,7 +32,6 @@ class MovieDetailScreen extends StatelessWidget {
       _releaseDate = result['release_date'];
       _status = result['status'];
       _voteAverage = result['vote_average'];
-      print(_title);
     }
   }
 
@@ -60,7 +57,7 @@ class MovieDetailScreen extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 10, top: 10),
+                      padding: const EdgeInsets.only(left: 10, top: 10),
                       width: 200,
                       child: Image.network(
                         _imageUrl,
@@ -79,41 +76,41 @@ class MovieDetailScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(width: 50),
+                    const SizedBox(width: 50),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         CircleAvatar(
-                          backgroundColor: Color(0xFFFFC400),
+                          backgroundColor: const Color(0xFFFFC400),
                           child: Text(double.parse(_voteAverage.toString())
                               .toStringAsFixed(1),
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Text(
-                          'Release Date:',
+                        const SizedBox(height: 20),
+                        const Text(
+                          '公開日 :',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.blue,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(_releaseDate.toString()),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(_status.toString()),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                       ],
                     ),
 
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Text(
                     _overview,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       height: 1.5,
                       wordSpacing: 1.5,

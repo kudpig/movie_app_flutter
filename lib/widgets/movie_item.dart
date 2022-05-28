@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../screens/movie_detail_screen.dart';
 
 class MovieItem extends StatelessWidget {
@@ -7,7 +6,7 @@ class MovieItem extends StatelessWidget {
   final String imageUrl;
   final String title;
 
-  MovieItem(
+  const MovieItem(
     this.id,
     this.imageUrl,
     this.title,

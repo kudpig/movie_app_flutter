@@ -1,10 +1,7 @@
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app_flutter/widgets/movie_item.dart';
-
 import '../models/movie.dart';
 
 class MainScreen extends StatefulWidget {
@@ -25,12 +22,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<List<Movie>> _fetchMovies(int page) async {
-
     String apiKey = 'APIKEY';
     String language = 'ja-JP';
 
-    final response = await http
-        .get(Uri.parse('https://api.themoviedb.org/3/movie/popular?api_key=$apiKey&page=$page&language=$language'));
+    final response = await http.get(Uri.parse(
+        'https://api.themoviedb.org/3/movie/popular?api_key=$apiKey&page=$page&language=$language'));
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
@@ -47,12 +43,11 @@ class _MainScreenState extends State<MainScreen> {
       _movies.addAll(myMovies);
     });
     _page += 1;
-    print('populating ' + page.toString());
+    print('ページング：' + page.toString() + 'ページ目');
   }
 
   @override
   Widget build(BuildContext context) {
-
     final ScrollController _controller = ScrollController();
     _controller.addListener(() {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
@@ -65,28 +60,28 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('movies app'),
+        title: const Text('movies app'),
       ),
       body: _movies.isEmpty
           ? const Center(
-        child: CircularProgressIndicator(),
-      )
+              child: CircularProgressIndicator(),
+            )
           : GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 4,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 30,
-        ),
-        itemBuilder: (ctx, i) => MovieItem(
-          _movies[i].id,
-          _movies[i].fullImageUrl,
-          _movies[i].title,
-        ),
-        itemCount: _movies.length,
-        padding: const EdgeInsets.all(10),
-        controller: _controller,
-      ),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 4,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 30,
+              ),
+              itemBuilder: (ctx, i) => MovieItem(
+                _movies[i].id,
+                _movies[i].fullImageUrl,
+                _movies[i].title,
+              ),
+              itemCount: _movies.length,
+              padding: const EdgeInsets.all(10),
+              controller: _controller,
+            ),
     );
   }
 }
